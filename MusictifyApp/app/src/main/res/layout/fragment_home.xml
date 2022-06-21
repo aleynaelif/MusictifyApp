@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home">
+
+    <Button
+        android:id="@+id/likedSongs"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="125dp"
+        android:gravity="center"
+        android:onClick="likedSongs"
+        android:text="Songs you lıked" />
+
+    <Button
+        android:id="@+id/playlists"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="225dp"
+        android:layout_marginTop="125dp"
+        android:gravity="center"
+        android:onClick="playlists"
+        android:text="Playlısts" />
+
+    <Button
+        android:id="@+id/artists"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="300dp"
+        android:gravity="center"
+        android:onClick="artists"
+        android:text="Artısts" />
+
+    <Button
+        android:id="@+id/albums"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="225dp"
+        android:layout_marginTop="300dp"
+        android:gravity="center"
+        android:onClick="albums"
+        android:text="Albums" />
+</FrameLayout>

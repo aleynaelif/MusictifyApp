@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "232175593393",
+    "project_id": "musictifyapp",
+    "storage_bucket": "musictifyapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232175593393:android:2c1e866a7222b55778bf90",
+        "android_client_info": {
+          "package_name": "com.ley.musictifyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232175593393-tvcls9f1io43540ap1och3nvhg7qqb6o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFc7uBK_9iSGY7Kdz6blLTa0pzOaldiQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232175593393-tvcls9f1io43540ap1och3nvhg7qqb6o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
