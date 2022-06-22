@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,8 +14,8 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="125dp"
         android:gravity="center"
-        android:onClick="likedSongs"
-        android:text="Songs you lıked" />
+        android:text="Songs you lıked"
+        app:cornerRadius="30dp" />
 
     <Button
         android:id="@+id/playlists"
@@ -23,8 +24,8 @@
         android:layout_marginLeft="225dp"
         android:layout_marginTop="125dp"
         android:gravity="center"
-        android:onClick="playlists"
-        android:text="Playlısts" />
+        android:text="Playlısts"
+        app:cornerRadius="30dp" />
 
     <Button
         android:id="@+id/artists"
@@ -33,8 +34,8 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="300dp"
         android:gravity="center"
-        android:onClick="artists"
-        android:text="Artısts" />
+        android:text="Artısts"
+        app:cornerRadius="30dp" />
 
     <Button
         android:id="@+id/albums"
@@ -43,6 +44,7 @@
         android:layout_marginLeft="225dp"
         android:layout_marginTop="300dp"
         android:gravity="center"
-        android:onClick="albums"
-        android:text="Albums" />
+        android:text="Albums"
+        app:cornerRadius="30dp" />
+
 </FrameLayout>
