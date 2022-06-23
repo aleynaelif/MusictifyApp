@@ -3,60 +3,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/home2">
+    app:startDestination="@id/navBarHomeButton">
 
     <fragment
-        android:id="@+id/albums2"
-        android:name="com.ley.musictifyapp.Albums"
-        android:label="fragment_albums"
-        tools:layout="@layout/fragment_albums" >
+        android:id="@+id/navBarHomeButton"
+        android:name="com.ley.musictifyapp.NavBarHomeButton"
+        android:label="fragment_nav_bar_home_button"
+        tools:layout="@layout/fragment_nav_bar_home_button" >
         <action
-            android:id="@+id/action_albums2_to_home2"
-            app:destination="@id/home2" />
+            android:id="@+id/action_navBarHomeButton_to_likedSongs"
+            app:destination="@id/likedSongs" />
+        <action
+            android:id="@+id/action_navBarHomeButton_to_albums"
+            app:destination="@id/albums" />
+        <action
+            android:id="@+id/action_navBarHomeButton_to_playlists"
+            app:destination="@id/playlists" />
+        <action
+            android:id="@+id/action_navBarHomeButton_to_artists"
+            app:destination="@id/artists" />
     </fragment>
     <fragment
-        android:id="@+id/artists2"
-        android:name="com.ley.musictifyapp.Artists"
-        android:label="fragment_artists"
-        tools:layout="@layout/fragment_artists" >
-        <action
-            android:id="@+id/action_artists2_to_home2"
-            app:destination="@id/home2" />
-    </fragment>
-    <fragment
-        android:id="@+id/home2"
-        android:name="com.ley.musictifyapp.Home"
-        android:label="fragment_home_button"
-        tools:layout="@layout/fragment_home_button" >
-        <action
-            android:id="@+id/action_home2_to_artists2"
-            app:destination="@id/artists2" />
-        <action
-            android:id="@+id/action_home2_to_albums2"
-            app:destination="@id/albums2" />
-        <action
-            android:id="@+id/action_home2_to_likedSongs2"
-            app:destination="@id/likedSongs2" />
-        <action
-            android:id="@+id/action_home2_to_playlists2"
-            app:destination="@id/playlists2" />
-    </fragment>
-    <fragment
-        android:id="@+id/likedSongs2"
+        android:id="@+id/likedSongs"
         android:name="com.ley.musictifyapp.LikedSongs"
         android:label="fragment_liked_songs"
         tools:layout="@layout/fragment_liked_songs" >
         <action
-            android:id="@+id/action_likedSongs2_to_home22"
-            app:destination="@id/home2" />
+            android:id="@+id/action_likedSongs_to_navBarHomeButton"
+            app:destination="@id/navBarHomeButton" />
     </fragment>
     <fragment
-        android:id="@+id/playlists2"
+        android:id="@+id/albums"
+        android:name="com.ley.musictifyapp.Albums"
+        android:label="fragment_albums"
+        tools:layout="@layout/fragment_albums" >
+        <action
+            android:id="@+id/action_albums_to_navBarHomeButton"
+            app:destination="@id/navBarHomeButton" />
+    </fragment>
+    <fragment
+        android:id="@+id/artists"
+        android:name="com.ley.musictifyapp.Artists"
+        android:label="fragment_artists"
+        tools:layout="@layout/fragment_artists" >
+        <action
+            android:id="@+id/action_artists_to_navBarHomeButton"
+            app:destination="@id/navBarHomeButton" />
+    </fragment>
+    <fragment
+        android:id="@+id/playlists"
         android:name="com.ley.musictifyapp.Playlists"
         android:label="fragment_playlists"
         tools:layout="@layout/fragment_playlists" >
         <action
-            android:id="@+id/action_playlists2_to_home2"
-            app:destination="@id/home2" />
+            android:id="@+id/action_playlists_to_navBarHomeButton"
+            app:destination="@id/navBarHomeButton" />
     </fragment>
 </navigation>

@@ -20,14 +20,14 @@ class HomePage : AppCompatActivity() {
         binding = ActivityHomePageBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        replaceFragment(Home())
+        replaceFragment(NavBarHomeButton())
 
         auth = Firebase.auth
 
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId){
-                R.id.home -> replaceFragment(Home())
+                R.id.home -> replaceFragment(NavBarHomeButton())
                 R.id.search -> replaceFragment(Search())
 
                 else->{

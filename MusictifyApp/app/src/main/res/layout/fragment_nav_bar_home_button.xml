@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NavBarHomeButton">
+
+    <Button
+        android:id="@+id/LikedSongsButton"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:text="Lıked songs"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="70dp"/>
+
+    <Button
+        android:id="@+id/PlaylistsButton"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:text="playlısts"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="225dp"/>
+
+    <Button
+        android:id="@+id/ArtistsButton"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:text="artısts"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="70dp"/>
+
+    <Button
+        android:id="@+id/AlbumsButton"
+        android:layout_width="125dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="225dp"
+        android:text="albums" />
+
+
+
+</FrameLayout>

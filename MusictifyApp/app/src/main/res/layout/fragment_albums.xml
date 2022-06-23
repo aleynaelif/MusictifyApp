@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".Albums">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <TextView
         android:id="@+id/AlbumsTextView"
         android:layout_width="match_parent"
@@ -14,5 +18,6 @@
         android:text="Albums"
         android:textColor="@color/primary_text"
         android:textSize="35dp" />
+
 
 </FrameLayout>
