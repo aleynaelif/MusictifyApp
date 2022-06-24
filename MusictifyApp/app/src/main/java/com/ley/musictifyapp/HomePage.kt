@@ -40,12 +40,17 @@ class HomePage : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = menuInflater
-        menuInflater.inflate(R.menu.sign_out,menu)
+        menuInflater.inflate(R.menu.options_menu,menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.signout){
+
+        if(item.itemId == R.id.createPlaylist){
+            replaceFragment(CreatePlaylist())
+
+        }
+        else if(item.itemId == R.id.signout){
             auth.signOut()
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
@@ -58,6 +63,7 @@ class HomePage : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frameLayout,fragment)
+        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 

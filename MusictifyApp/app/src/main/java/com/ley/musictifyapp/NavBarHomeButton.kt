@@ -20,11 +20,11 @@ class NavBarHomeButton : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentNavBarHomeButtonBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+            savedInstanceState: Bundle?
+        ): View? {
+            _binding = FragmentNavBarHomeButtonBinding.inflate(inflater, container, false)
+            val view = binding.root
+            return view
 
     }
 
@@ -32,20 +32,36 @@ class NavBarHomeButton : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.LikedSongsButton.setOnClickListener {
-            val action = NavBarHomeButtonDirections.actionNavBarHomeButtonToLikedSongs()
-            Navigation.findNavController(it).navigate(action)
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            if (transaction != null) {
+                transaction.replace(R.id.frameLayout, LikedSongs())
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
         }
         binding.PlaylistsButton.setOnClickListener {
-            val action1 = NavBarHomeButtonDirections.actionNavBarHomeButtonToPlaylists()
-            Navigation.findNavController(it).navigate(action1)
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            if (transaction != null) {
+                transaction.replace(R.id.frameLayout, Playlists())
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
         }
         binding.ArtistsButton.setOnClickListener {
-            val action2 = NavBarHomeButtonDirections.actionNavBarHomeButtonToArtists()
-            Navigation.findNavController(it).navigate(action2)
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            if (transaction != null) {
+                transaction.replace(R.id.frameLayout, Artists())
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
         }
         binding.AlbumsButton.setOnClickListener {
-            val action3 = NavBarHomeButtonDirections.actionNavBarHomeButtonToAlbums()
-            Navigation.findNavController(it).navigate(action3)
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            if (transaction != null) {
+                transaction.replace(R.id.frameLayout, Albums())
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
         }
 
     }
