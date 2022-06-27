@@ -6,12 +6,18 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.RequestManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ley.musictifyapp.databinding.ActivityHomePageBinding
-
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+@AndroidEntryPoint
 class HomePage : AppCompatActivity() {
+    @Inject
+    lateinit var glide: RequestManager
+
     private lateinit var binding: ActivityHomePageBinding
     private lateinit var auth: FirebaseAuth
 
@@ -38,7 +44,7 @@ class HomePage : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.options_menu,menu)
         return super.onCreateOptionsMenu(menu)
