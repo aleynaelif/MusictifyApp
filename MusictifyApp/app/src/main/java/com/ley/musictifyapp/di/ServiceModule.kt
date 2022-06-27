@@ -13,10 +13,15 @@ import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ServiceScoped
 import com.google.android.exoplayer2.util.Util
+import com.ley.musictifyapp.data.remote.MusicDatabase
 
 @Module
 @InstallIn(ServiceComponent::class)
 object ServiceModule {
+
+    @ServiceScoped
+    @Provides
+    fun provideMusicDatabase() = MusicDatabase()
 
     @ServiceScoped
     @Provides
