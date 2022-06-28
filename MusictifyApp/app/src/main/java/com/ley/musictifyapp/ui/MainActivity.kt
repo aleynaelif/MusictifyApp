@@ -1,4 +1,4 @@
-package com.ley.musictifyapp
+package com.ley.musictifyapp.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         val currentUser = auth.currentUser
         if(currentUser != null){
-            val intent = Intent(this,HomePage::class.java)
+            val intent = Intent(this, HomePage::class.java)
             startActivity(intent)
             finish()
         }
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             auth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
-                val intent = Intent(this@MainActivity,HomePage::class.java)
+                val intent = Intent(this@MainActivity, HomePage::class.java)
                 startActivity(intent)
                 finish()
             }.addOnFailureListener {
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         }
         else{
             auth.createUserWithEmailAndPassword(email,password).addOnSuccessListener {
-                val intent = Intent(this@MainActivity,HomePage::class.java)
+                val intent = Intent(this@MainActivity, HomePage::class.java)
                 startActivity(intent)
                 finish()
             }.addOnFailureListener {

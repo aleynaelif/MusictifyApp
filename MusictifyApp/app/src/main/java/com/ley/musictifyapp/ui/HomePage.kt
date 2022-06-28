@@ -1,4 +1,4 @@
-package com.ley.musictifyapp
+package com.ley.musictifyapp.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +10,10 @@ import com.bumptech.glide.RequestManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.ley.musictifyapp.CreatePlaylist
+import com.ley.musictifyapp.NavBarHomeButton
+import com.ley.musictifyapp.R
+import com.ley.musictifyapp.Search
 import com.ley.musictifyapp.databinding.ActivityHomePageBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -58,7 +62,7 @@ class HomePage : AppCompatActivity() {
         }
         else if(item.itemId == R.id.signout){
             auth.signOut()
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }

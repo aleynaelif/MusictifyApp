@@ -4,7 +4,6 @@ data class Song (
     val album : String ="",
     val artist : String = "",
     val imageUrl : String = "",
-    val isLiked : Boolean = false,
     val mediaId : String = "",
     val songUrl : String = "",
     val title : String = ""
