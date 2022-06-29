@@ -16,17 +16,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class FirebaseMusicSource @Inject constructor(
+class FirebaseMusicSource
+@Inject constructor(
     private val musicDatabase: MusicDatabase
 ){
 
     var songs = emptyList<MediaMetadataCompat>()
 
-    suspend  fun fetchMediaData() = withContext(Dispatchers.IO){
-
+    suspend fun fetchMediaData() {
         state = STATE_INITIALIZING
+        getAllSongs()
+        state = STATE_INITIALIZED
+    }
+
+    suspend fun getAllSongs() = withContext(Dispatchers.IO) {
         val allSongs = musicDatabase.getAllSongs()
-        songs = allSongs.map { song->
+        songs = allSongs.map { song ->
             MediaMetadataCompat.Builder()
                 .putString(METADATA_KEY_ARTIST,song.artist)
                 .putString(METADATA_KEY_MEDIA_ID, song.mediaId)
@@ -36,15 +41,14 @@ class FirebaseMusicSource @Inject constructor(
                 .putString(METADATA_KEY_ALBUM_ART_URI,song.imageUrl)
                 .build()
         }
-
-        state = STATE_INITIALIZED
     }
 
     fun asMediaSource(dataSourceFactory: DefaultDataSourceFactory): ConcatenatingMediaSource {
         val concatenatingMediaSource = ConcatenatingMediaSource()
         songs.forEach { song ->
+            val mediaItem:MediaItem = MediaItem.fromUri(song.getString(METADATA_KEY_MEDIA_URI).toUri())
             val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(MediaItem.fromUri(song.getString(METADATA_KEY_MEDIA_URI)))
+                .createMediaSource(mediaItem)
             concatenatingMediaSource.addMediaSource(mediaSource)
         }
         return concatenatingMediaSource
@@ -57,43 +61,37 @@ class FirebaseMusicSource @Inject constructor(
             .setMediaId(song.description.mediaId)
             .setIconUri(song.description.iconUri)
             .build()
-        MediaBrowserCompat.MediaItem(desc, FLAG_PLAYABLE)
+        MediaBrowserCompat.MediaItem(desc, FLAG_PLAYABLE )
     }.toMutableList()
-
 
     private val onReadyListeners = mutableListOf<(Boolean) -> Unit>()
 
-    private var state : State = STATE_CREATED
-        set(value){
+    private var state: State = STATE_CREATED
+        set(value) {
             if(value == STATE_INITIALIZED || value == STATE_ERROR){
-                synchronized(onReadyListeners){
+                synchronized(onReadyListeners) {
                     field = value
-                    onReadyListeners.forEach{ listener->
+                    onReadyListeners.forEach { listener ->
                         listener(state == STATE_INITIALIZED)
-
                     }
                 }
-            }
-            else{
+            } else {
                 field = value
             }
-
         }
 
-    fun whenReady(action: (Boolean)->Unit): Boolean{
-        if(state == STATE_CREATED || state == STATE_INITIALIZING){
+    fun whenReady(action: (Boolean) -> Unit): Boolean {
+        if (state == STATE_CREATED || state == STATE_INITIALIZING) {
             onReadyListeners += action
             return false
-        }
-        else{
-            action(state==STATE_INITIALIZED )
+        } else {
+            action(state == STATE_INITIALIZED)
             return true
         }
     }
-
 }
 
-enum class State{
+enum class State {
     STATE_CREATED,
     STATE_INITIALIZING,
     STATE_INITIALIZED,

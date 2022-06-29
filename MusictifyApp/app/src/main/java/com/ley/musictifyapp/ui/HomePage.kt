@@ -1,29 +1,34 @@
 package com.ley.musictifyapp.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.RequestManager
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.ley.musictifyapp.CreatePlaylist
 import com.ley.musictifyapp.NavBarHomeButton
 import com.ley.musictifyapp.R
-import com.ley.musictifyapp.Search
+import com.ley.musictifyapp.adapter.SwipeSongAdapter
+import com.ley.musictifyapp.data.entities.Song
 import com.ley.musictifyapp.databinding.ActivityHomePageBinding
+import com.ley.musictifyapp.exoplayer.toSong
+import com.ley.musictifyapp.other.Status
+import com.ley.musictifyapp.ui.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_home_page.*
 import javax.inject.Inject
 @AndroidEntryPoint
 class HomePage : AppCompatActivity() {
     @Inject
     lateinit var glide: RequestManager
 
+    private val mainViewModel: MainViewModel by viewModels()
+
+    @Inject
+    lateinit var swipeSongAdapter: SwipeSongAdapter
+
+    private var curPlayingSong: Song? = null
+
     private lateinit var binding: ActivityHomePageBinding
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,42 +36,9 @@ class HomePage : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         replaceFragment(NavBarHomeButton())
+        
+        vpSong.adapter = swipeSongAdapter
 
-        auth = Firebase.auth
-
-
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId){
-                R.id.home -> replaceFragment(NavBarHomeButton())
-                R.id.search -> replaceFragment(Search())
-
-                else->{
-
-                }
-            }
-            true
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val menuInflater = menuInflater
-        menuInflater.inflate(R.menu.options_menu,menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        if(item.itemId == R.id.createPlaylist){
-            replaceFragment(CreatePlaylist())
-
-        }
-        else if(item.itemId == R.id.signout){
-            auth.signOut()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun replaceFragment(fragment : Fragment){
@@ -77,5 +49,39 @@ class HomePage : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+    private fun switchViewPagerToCurrentSong(song: Song) {
+        val newItemIndex = swipeSongAdapter.songs.indexOf(song)
+        if(newItemIndex != -1) {
+            vpSong.currentItem = newItemIndex
+            curPlayingSong = song
+        }
+    }
+
+    private fun subscribeToObservers() {
+        mainViewModel.mediaItems.observe(this) {
+            it?.let { result ->
+                when(result.status) {
+                    Status.SUCCESS -> {
+                        result.data?.let { songs ->
+                            swipeSongAdapter.songs = songs
+                            if(songs.isNotEmpty()) {
+                                glide.load((curPlayingSong ?: songs[0]).imageUrl).into(ivCurSongImage)
+                            }
+                            switchViewPagerToCurrentSong(curPlayingSong ?: return@observe)
+                        }
+                    }
+                    Status.ERROR -> Unit
+                    Status.LOADING -> Unit
+                }
+            }
+        }
+        mainViewModel.curPlayingSong.observe(this) {
+            if(it == null) return@observe
+
+            curPlayingSong = it.toSong()
+            glide.load(curPlayingSong?.imageUrl).into(ivCurSongImage)
+            switchViewPagerToCurrentSong(curPlayingSong ?: return@observe)
+        }
+    }
 
 }

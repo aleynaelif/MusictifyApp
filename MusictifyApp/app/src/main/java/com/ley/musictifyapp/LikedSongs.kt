@@ -5,20 +5,53 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.ley.musictifyapp.adapter.SongAdapter
+import com.ley.musictifyapp.other.Status
+import com.ley.musictifyapp.ui.viewmodels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_liked_songs.*
+import javax.inject.Inject
+
+@AndroidEntryPoint
+class LikedSongs : Fragment(R.layout.fragment_liked_songs) {
 
 
-class LikedSongs : Fragment() {
+    lateinit var mainViewModel: MainViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    @Inject
+    lateinit var songAdapter: SongAdapter
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        setupRecyclerView()
+        subscribeToObservers()
+
+        songAdapter.setItemClickListener {
+            mainViewModel.playOrToggleSong(it)
+        }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_liked_songs, container, false)
+    private fun setupRecyclerView() = rvAllSongs.apply {
+        adapter = songAdapter
+        layoutManager = LinearLayoutManager(requireContext())
     }
 
+    private fun subscribeToObservers() {
+        mainViewModel.mediaItems.observe(viewLifecycleOwner) { result ->
+            when(result.status) {
+                Status.SUCCESS -> {
+                    allSongsProgressBar.isVisible = false
+                    result.data?.let { songs ->
+                        songAdapter.songs = songs
+                    }
+                }
+                Status.ERROR -> Unit
+                Status.LOADING -> allSongsProgressBar.isVisible = true
+            }
+        }
+    }
 }
