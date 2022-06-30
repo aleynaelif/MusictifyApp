@@ -9,10 +9,10 @@ import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
 import com.ley.musictifyapp.exoplayer.FirebaseMusicSource
 
-class MusicPlaybackPreparer (
+class MusicPlaybackPreparer(
     private val firebaseMusicSource: FirebaseMusicSource,
-    private val playerPrepared: (MediaMetadataCompat?)-> Unit
-) : MediaSessionConnector.PlaybackPreparer{
+    private val playerPrepared: (MediaMetadataCompat?) -> Unit
+) : MediaSessionConnector.PlaybackPreparer {
 
     override fun onCommand(
         player: Player,
@@ -29,14 +29,13 @@ class MusicPlaybackPreparer (
     override fun onPrepare(playWhenReady: Boolean) = Unit
 
     override fun onPrepareFromMediaId(mediaId: String, playWhenReady: Boolean, extras: Bundle?) {
-       firebaseMusicSource.whenReady {
-           val itemToPlay = firebaseMusicSource.songs.find{mediaId == it.description.mediaId}
-           playerPrepared(itemToPlay)
-       }
+        firebaseMusicSource.whenReady {
+            val itemToPlay = firebaseMusicSource.songs.find { mediaId == it.description.mediaId }
+            playerPrepared(itemToPlay)
+        }
     }
 
     override fun onPrepareFromSearch(query: String, playWhenReady: Boolean, extras: Bundle?) = Unit
 
     override fun onPrepareFromUri(uri: Uri, playWhenReady: Boolean, extras: Bundle?) = Unit
-
 }

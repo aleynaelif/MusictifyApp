@@ -1,12 +1,11 @@
-package com.ley.musictifyapp
+package com.ley.musictifyapp.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.FragmentNavigator
+import com.ley.musictifyapp.R
 import com.ley.musictifyapp.databinding.FragmentNavBarHomeButtonBinding
 
 

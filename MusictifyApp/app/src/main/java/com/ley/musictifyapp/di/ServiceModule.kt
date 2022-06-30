@@ -26,24 +26,23 @@ object ServiceModule {
     @ServiceScoped
     @Provides
     fun provideAudioAttributes() = AudioAttributes.Builder()
-        .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
+        .setContentType(C.CONTENT_TYPE_MUSIC)
         .setUsage(C.USAGE_MEDIA)
         .build()
 
     @ServiceScoped
     @Provides
     fun provideExoPlayer(
-        @ApplicationContext context : Context,
+        @ApplicationContext context: Context,
         audioAttributes: AudioAttributes
-    ) = SimpleExoPlayer.Builder(context).build().apply{
-        setAudioAttributes(audioAttributes,true)
+    ) = SimpleExoPlayer.Builder(context).build().apply {
+        setAudioAttributes(audioAttributes, true)
         setHandleAudioBecomingNoisy(true)
-
     }
 
     @ServiceScoped
     @Provides
     fun provideDataSourceFactory(
         @ApplicationContext context: Context
-    ) = DefaultDataSourceFactory(context,Util.getUserAgent(context, "Spotify App"))
+    ) = DefaultDataSourceFactory(context, Util.getUserAgent(context, "Spotify App"))
 }

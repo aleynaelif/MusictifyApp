@@ -1,13 +1,12 @@
-package com.ley.musictifyapp
+package com.ley.musictifyapp.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ley.musictifyapp.R
 import com.ley.musictifyapp.adapter.SongAdapter
 import com.ley.musictifyapp.other.Status
 import com.ley.musictifyapp.ui.viewmodels.MainViewModel

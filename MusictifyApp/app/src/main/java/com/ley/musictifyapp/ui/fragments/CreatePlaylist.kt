@@ -1,4 +1,4 @@
-package com.ley.musictifyapp
+package com.ley.musictifyapp.ui.fragments
 
 import android.Manifest
 import android.app.Activity
@@ -16,8 +16,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import com.ley.musictifyapp.R
 import com.ley.musictifyapp.databinding.FragmentCreatePlaylistBinding
-import com.ley.musictifyapp.databinding.FragmentNavBarHomeButtonBinding
 import java.io.ByteArrayOutputStream
 
 class CreatePlaylist : Fragment() {

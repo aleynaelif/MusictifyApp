@@ -2,6 +2,7 @@ package com.ley.musictifyapp.ui.viewmodels
 
 import android.media.MediaMetadata.METADATA_KEY_MEDIA_ID
 import android.support.v4.media.MediaBrowserCompat
+import android.support.v4.media.MediaMetadataCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -17,9 +18,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class MainViewModel
+@Inject constructor(
     private val musicServiceConnection: MusicServiceConnection
 ) : ViewModel() {
+
     private val _mediaItems = MutableLiveData<Resource<List<Song>>>()
     val mediaItems: LiveData<Resource<List<Song>>> = _mediaItems
 
@@ -40,8 +43,9 @@ class MainViewModel @Inject constructor(
                     Song(
                         it.mediaId!!,
                         it.description.title.toString(),
+                        it.description.subtitle.toString(),
                         it.description.mediaUri.toString(),
-                        it.description.iconUri.toString(),
+                        it.description.iconUri.toString()
                     )
                 }
                 _mediaItems.postValue(Resource.success(items))
@@ -64,7 +68,7 @@ class MainViewModel @Inject constructor(
     fun playOrToggleSong(mediaItem: Song, toggle: Boolean = false) {
         val isPrepared = playbackState.value?.isPrepared ?: false
         if(isPrepared && mediaItem.mediaId ==
-            curPlayingSong.value?.getString(METADATA_KEY_MEDIA_ID)) {
+            curPlayingSong.value?.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID)) {
             playbackState.value?.let { playbackState ->
                 when {
                     playbackState.isPlaying -> if(toggle) musicServiceConnection.transportControls.pause()

@@ -6,13 +6,14 @@ import com.ley.musictifyapp.other.Constants.SONG_COLLECTION
 import kotlinx.coroutines.tasks.await
 
 class MusicDatabase {
+
     private val firestore = FirebaseFirestore.getInstance()
     private val songCollection = firestore.collection(SONG_COLLECTION)
 
-    suspend fun getAllSongs():List<Song>{
+    suspend fun getAllSongs(): List<Song> {
         return try {
             songCollection.get().await().toObjects(Song::class.java)
-        }catch (e:Exception){
+        } catch(e: Exception) {
             emptyList()
         }
     }

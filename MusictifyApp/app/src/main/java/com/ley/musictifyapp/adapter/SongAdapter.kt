@@ -16,8 +16,9 @@ class SongAdapter @Inject constructor(
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         val song = songs[position]
         holder.itemView.apply {
-            tvPrimary.text = song.title
-            glide.load(song.imageUrl).into(ivItemImage)
+            tvPrimary.text = song.artist
+            tvSecondary.text = song.songUrl
+            glide.load(song.subtitle).into(ivItemImage)
 
             setOnClickListener {
                 onItemClickListener?.let { click ->

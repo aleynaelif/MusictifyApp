@@ -1,10 +1,10 @@
 package com.ley.musictifyapp.exoplayer
 
+import android.media.MediaMetadata.*
 import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaBrowserCompat.MediaItem.FLAG_PLAYABLE
 import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
-import android.support.v4.media.MediaMetadataCompat.*
 import androidx.core.net.toUri
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
@@ -33,12 +33,14 @@ class FirebaseMusicSource
         val allSongs = musicDatabase.getAllSongs()
         songs = allSongs.map { song ->
             MediaMetadataCompat.Builder()
-                .putString(METADATA_KEY_ARTIST,song.artist)
+                .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, song.subtitle)
                 .putString(METADATA_KEY_MEDIA_ID, song.mediaId)
+                .putString(METADATA_KEY_TITLE, song.title)
                 .putString(METADATA_KEY_DISPLAY_TITLE, song.title)
                 .putString(METADATA_KEY_DISPLAY_ICON_URI, song.imageUrl)
                 .putString(METADATA_KEY_MEDIA_URI, song.songUrl)
-                .putString(METADATA_KEY_ALBUM_ART_URI,song.imageUrl)
+                .putString(METADATA_KEY_ALBUM,song.album)
+                .putString(METADATA_KEY_ALBUM_ART_URI, song.imageUrl)
                 .build()
         }
     }
@@ -46,7 +48,8 @@ class FirebaseMusicSource
     fun asMediaSource(dataSourceFactory: DefaultDataSourceFactory): ConcatenatingMediaSource {
         val concatenatingMediaSource = ConcatenatingMediaSource()
         songs.forEach { song ->
-            val mediaItem:MediaItem = MediaItem.fromUri(song.getString(METADATA_KEY_MEDIA_URI).toUri())
+            val mediaItem: MediaItem =
+                MediaItem.fromUri(song.getString(METADATA_KEY_MEDIA_URI).toUri())
             val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
                 .createMediaSource(mediaItem)
             concatenatingMediaSource.addMediaSource(mediaSource)
@@ -58,6 +61,7 @@ class FirebaseMusicSource
         val desc = MediaDescriptionCompat.Builder()
             .setMediaUri(song.getString(METADATA_KEY_MEDIA_URI).toUri())
             .setTitle(song.description.title)
+            .setSubtitle(song.description.subtitle)
             .setMediaId(song.description.mediaId)
             .setIconUri(song.description.iconUri)
             .build()

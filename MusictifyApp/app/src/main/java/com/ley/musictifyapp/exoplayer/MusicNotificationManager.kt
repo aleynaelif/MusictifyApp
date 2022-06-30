@@ -17,30 +17,29 @@ import com.ley.musictifyapp.other.Constants.CHANNEL_ID
 import com.ley.musictifyapp.other.Constants.NOTIFICATION_CHANNEL_ID
 import com.ley.musictifyapp.other.Constants.NOTIFICATION_ID
 
-class MusicNotificationManager (
+class MusicNotificationManager(
     private val context: Context,
     sessionToken: MediaSessionCompat.Token,
-    noticationListener: PlayerNotificationManager.NotificationListener,
-    private val newSongCallback:() -> Unit
-){
-
-
+    notificationListener: PlayerNotificationManager.NotificationListener,
+    private val newSongCallback: () -> Unit
+) {
     private val notificationManager: PlayerNotificationManager
 
     init {
         val mediaController = MediaControllerCompat(context, sessionToken)
-
         notificationManager = PlayerNotificationManager.Builder(
             context,
-            NOTIFICATION_ID, CHANNEL_ID)
+            NOTIFICATION_ID,
+            NOTIFICATION_CHANNEL_ID)
             .setChannelNameResourceId(R.string.notification_channel_name)
             .setChannelDescriptionResourceId(R.string.notification_channel_description)
             .setMediaDescriptionAdapter(DescriptionAdapter(mediaController))
-            .setNotificationListener(noticationListener)
-            .build().apply {
-            setSmallIcon(R.drawable.ic_music)
-            setMediaSessionToken(sessionToken)
-        }
+            .setNotificationListener(notificationListener)
+            .build()
+            .apply {
+                setSmallIcon(R.drawable.ic_music)
+                setMediaSessionToken(sessionToken)
+            }
 
     }
 
@@ -50,7 +49,7 @@ class MusicNotificationManager (
 
     private inner class DescriptionAdapter(
         private val mediaController: MediaControllerCompat
-    ) : PlayerNotificationManager.MediaDescriptionAdapter {
+    ): PlayerNotificationManager.MediaDescriptionAdapter {
 
         override fun getCurrentContentTitle(player: Player): CharSequence {
             return mediaController.metadata.description.title.toString()
@@ -82,5 +81,6 @@ class MusicNotificationManager (
                 })
             return null
         }
+
     }
 }
