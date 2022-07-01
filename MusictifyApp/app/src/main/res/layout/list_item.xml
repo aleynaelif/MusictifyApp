@@ -10,7 +10,8 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="20dp"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvPrimary"
@@ -20,7 +21,7 @@
         android:layout_marginRight="16dp"
         android:gravity="center|left"
         android:text="Playlist Title"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="18dp"
         android:textSize="20sp"
         android:textColor="@color/primary_text"
         app:layout_constraintEnd_toEndOf="parent"
