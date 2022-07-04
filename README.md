@@ -1,8 +1,5 @@
 # MusictifyApp
 
-
----Internship Project ---
-
  This project is a basic implementation of the app which is called Spotify.
  The app welcomes the users with the login screen. Users can easily sign up by using their email and password combinations.
  This project uses Firebase to store and verify the login information. If user types the correct combination, then the app opens.
@@ -17,4 +14,4 @@
 
 
  This project uses:
- MVVM, Firebase, SQLite, recyclerView, viewBinding, fragments, navigation, coroutines, picasso, glide, dagger, hilt, exoplayer.
+ MVVM, Firebase, SQLite, recyclerView, viewBinding, fragments, navigation, coroutines, picasso, glide, dagger, hilt and exoplayer.
